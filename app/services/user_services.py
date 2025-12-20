@@ -31,17 +31,15 @@ class UserGetService:
 
 
 class UserCreateService:
-
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     def __init__(self, db: Session):
         self.db = db
         self.get_service = UserGetService(db)
-        self.password_hasher = PasswordHasherService()
+        self.hasher = PasswordHasherService(pwd_context)
 
     def create_user(self, user_data : SignUpModel ) -> Users:#password should be hashed and not show plain
         if self.get_service.get_user_by_email(user_data.email):
             raise ValueError("Email already registered")
-        hashed_password = self.hash_password(user_data.password)
+        hashed_password = self.hasher.hash_password(user_data.password)
         db_user = Users(
             username=user_data.username,
             email=user_data.email,
@@ -49,6 +47,7 @@ class UserCreateService:
             is_active=user_data.is_active,
             is_staff=user_data.is_staff,
         )
+
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
