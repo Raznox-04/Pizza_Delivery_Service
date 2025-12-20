@@ -4,7 +4,6 @@ from app.models.users import Users
 from app.schemas.users_schema import SignUpModel
 from passlib.context import  CryptContext
 
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class PasswordHasherService:
@@ -29,7 +28,6 @@ class UserGetService:
         user = self.db.query(Users).filter(Users.email == user_email).first()
         return user
 
-
 class UserCreateService:
     def __init__(self, db: Session):
         self.db = db
@@ -38,7 +36,7 @@ class UserCreateService:
 
     def create_user(self, user_data : SignUpModel ) -> Users:#password should be hashed and not show plain
         if self.get_service.get_user_by_email(user_data.email):
-            raise ValueError("Email already registered")
+            raise ValueError("This Email already Registered")
         hashed_password = self.hasher.hash_password(user_data.password)
         db_user = Users(
             username=user_data.username,
@@ -47,7 +45,6 @@ class UserCreateService:
             is_active=user_data.is_active,
             is_staff=user_data.is_staff,
         )
-
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
