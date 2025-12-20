@@ -1,4 +1,4 @@
-from base import Base
+from app.database.base import Base
 from sqlalchemy import Column, Integer, String, Boolean,Text
 from sqlalchemy.orm import relationship
 class Users(Base):
