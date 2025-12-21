@@ -1,4 +1,4 @@
-from app.database.database import engine
+from app.database.session import engine
 from app.database.base import Base
 from app.models.orders import Orders
 from app.models.users import Users
