@@ -36,5 +36,6 @@ class SignUpResponseModel(UserBase):
             }
         }
 class LoginModel(BaseModel):
+    username: str
     email: EmailStr
     password: str
