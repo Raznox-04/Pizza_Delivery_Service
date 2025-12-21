@@ -38,6 +38,3 @@ class SignUpResponseModel(UserBase):
 class LoginModel(BaseModel):
     email: EmailStr
     password: str
-
-class UserUpdateModel(UserBase):
-    password: Optional[str] = None
