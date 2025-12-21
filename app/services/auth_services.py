@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 from app.models.users import Users
-from user_services import user_service
+from app.services.user_services import UserGetService
 from app.schemas.users_schema import SignUpModel
 from app.core.security import PasswordHasherService,pwd_context
 class UserCreateService:
     def __init__(self, db: Session):
         self.db = db
-        self.get_service = user_service(db)
+        self.get_service = UserGetService(db)
         self.hasher = PasswordHasherService(pwd_context)
 
     def create_user(self, user_data : SignUpModel ) -> Users:#password should be hashed and not show plain

@@ -6,7 +6,7 @@ class Token(BaseModel):
     token_type: str = Field(default="bearer", example="bearer")
     expires_in: Optional[int] = Field(
         default=3600,
-        description="زمان انقضا به ثانیه"
+        description="expierd time in seconds",
     )
     refresh_token: Optional[str] = Field(
         None,

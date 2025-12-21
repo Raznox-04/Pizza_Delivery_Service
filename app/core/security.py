@@ -6,15 +6,13 @@ from typing import Annotated, Optional
 from app.models.users import Users
 from app.schemas.users_schema import LoginModel
 from app.schemas.token_schema import TokenPayload,TokenData
-from config import settings
+from app.core.config import settings
 from passlib.context import  CryptContext
 from jose import jwt,JWTError
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 class PasswordHasherService:
     def __init__(self, password_hasher: CryptContext):
         self.password_hasher = password_hasher
-
     def hash_password(self, password: str) -> str:
         return self.password_hasher.hash(password)
 
@@ -27,10 +25,8 @@ class TokenService:
         self.secret_key = settings.SECRET_KEY
         self.algorithm = settings.ALGORITHM
         self.access_token_time = settings.ACCESS_TOKEN_TIME
-        self.refresh_token_time = settings.REFRESH_TOKEN_TIME
-
     def create_access_token(self, token_payload:TokenPayload,expire_time:Optional[timedelta]= None) -> str:
-        to_encode = token_payload.dumps()
+        to_encode = token_payload.model_dump()
         if expire_time:
             expire = datetime.now() + expire_time
         else:
@@ -51,3 +47,4 @@ class TokenService:
 
     def verify_token(self, token:str):
         return self.decode_access_token(token) is not None
+token_service = TokenService()

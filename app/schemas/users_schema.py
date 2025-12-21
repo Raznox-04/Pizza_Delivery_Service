@@ -3,7 +3,7 @@ from typing import Optional
 class UserBase(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
-    is_active: Optional[bool] = False
+    is_active: Optional[bool] = True
     is_staff: Optional[bool] = False
 class SignUpModel(UserBase):
     email: EmailStr
@@ -36,6 +36,7 @@ class SignUpResponseModel(UserBase):
             }
         }
 class LoginModel(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
     username: str
     email: EmailStr
-    password: str
