@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from routers.auth import auth_router
-from routers.orders import order_router
+from app.routers.auth import auth_router
+from app.routers.orders  import order_router
 app = FastAPI(title="Pizza Delivery ElenPizo",summary="Pizza Delivery Web Service")
-app.include_router(auth_router)
+app.include_router(auth_router,prefix="/auth")
 app.include_router(order_router)
 
-@app.get("/")
+@app.get("/",tags=["index"])
 async def root():
-    return {"message": "Welcome to Pizza Delivery Web Service its working!!!"}
+    return {"message": "Welcome to Pizza Delivery Web Sefastrvice its working!!!"}
