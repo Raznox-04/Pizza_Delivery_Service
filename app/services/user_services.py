@@ -1,6 +1,7 @@
 from pydantic import EmailStr
 from sqlalchemy.orm import Session
 from app.models.users import Users
+from typing import Optional,List,Dict
 class UserGetService:
     def __init__(self, db: Session):
         self.db = db
@@ -11,3 +12,7 @@ class UserGetService:
     def get_user_by_email(self, user_email: EmailStr):
         user = self.db.query(Users).filter(Users.email == user_email).first()
         return user
+
+    def all_users(self) -> List[Users]:
+        users = self.db.query(Users).all()
+        return users
