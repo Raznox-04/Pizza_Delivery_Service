@@ -9,6 +9,7 @@ from app.schemas.token_schema import TokenPayload,TokenData
 from app.core.config import settings
 from passlib.context import  CryptContext
 from jose import jwt,JWTError
+import secrets
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class PasswordHasherService:
     def __init__(self, password_hasher: CryptContext):
@@ -47,4 +48,10 @@ class TokenService:
 
     def verify_token(self, token:str):
         return self.decode_access_token(token) is not None
+
+
+    def generate_6_digit_code(self) -> str:
+        return f"{secrets.randbelow(10 ** 6):06d}"
+
+
 token_service = TokenService()

@@ -1,14 +1,12 @@
 from enum import Enum
-from typing import List
 
-class PizzaSize(List[str], Enum):
-    small = ["small","SMALL"]
-    large = ["large","LARGE"]
-    medium = ["medium","MEDIUM"]
-    extera_large = ["extera-large","EXTERA-LARGE"]
+class PizzaSize(str, Enum):
+    small = "small"
+    medium = "medium"
+    large = "large"
+    extra_large = "extra-large"
 
-
-class OrderStatus(List[str], Enum):
-    pending = ["pending","PENDING"]
-    in_transaction = ["in_transaction","IN-TRANSACTION"]
-    delivered = ["delivered","DELIVERED"]
+class OrderStatus(str, Enum):
+    pending = "pending"
+    in_transaction = "in-transaction"
+    delivered = "delivered"

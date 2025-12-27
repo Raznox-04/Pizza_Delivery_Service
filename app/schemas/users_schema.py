@@ -3,18 +3,18 @@ from typing import Optional
 class UserBase(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
-    is_active: Optional[bool] = True
-    is_staff: Optional[bool] = False
+    is_active: bool
+    is_staff: bool
 class SignUpModel(UserBase):
     email: EmailStr
     password: str
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "username": "mmdsadra",
                 "email": "sadrakhamesi@gmail.com",
-                "password": "securepassword123",
+                "password": "sadra1383",
                 "is_active": False,
                 "is_staff": False,
             }
@@ -25,8 +25,8 @@ class SignUpResponseModel(UserBase):
     username: str
 
     class Config:
-        orm_mode = True
-        schema_extra = {
+        from_attributes = True
+        json_schema_extra = {
             "example": {
                 "id": 1,
                 "username": "mmdsadra",
