@@ -5,6 +5,8 @@ class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     is_active: bool
     is_staff: bool
+    class Config:
+        orm_mode = True
 class SignUpModel(UserBase):
     email: EmailStr
     password: str
