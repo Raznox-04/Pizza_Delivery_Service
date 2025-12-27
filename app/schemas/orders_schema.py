@@ -21,3 +21,8 @@ class OrderRead(BaseModel):
     class Config:
         from_attributes = True
 
+class OrderUpdate(BaseModel):
+    quantity: int
+    pizza_size: PizzaSize
+    class Config:
+        extra = "forbid"
